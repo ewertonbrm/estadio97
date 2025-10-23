@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>97 FM Podcast Player</title>
+    <title>Estádio 97</title>
+    
+    <!-- 1. Carrega a fonte Open Sans do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
     <!-- Carrega Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 1. Define a fonte de sistema para se assemelhar à San Francisco */
+        /* 2. Define a fonte Open Sans como padrão para toda a página */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            font-family: 'Open Sans', sans-serif;
             /* Cor de fundo principal: Preto puro */
             background-color: #000000; 
         }
@@ -40,6 +44,7 @@
         }
     </style>
     <script>
+        // Configuração do Tailwind (apenas para cores)
         tailwind.config = {
             theme: {
                 extend: {
