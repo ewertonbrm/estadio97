@@ -116,8 +116,7 @@
         let globalPodcastTitle = '';
 
         /**
-         * Converte uma data de string RSS (RFC 822) para um formato legível em português,
-         * incluindo data e hora.
+         * Converte uma data de string RSS (RFC 822) para o formato customizado DD/MM/YY, HH:MM.
          * @param {string} dateString - A string de data do RSS.
          * @returns {string} Data e hora formatadas.
          */
@@ -129,14 +128,22 @@
                 if (isNaN(date)) {
                     return 'Data Indisponível';
                 }
-                // Formata a data e hora para o padrão brasileiro
-                return date.toLocaleDateString('pt-BR', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',   // Adiciona a hora
-                    minute: '2-digit'  // Adiciona o minuto
-                });
+                
+                // DD (com padding)
+                const day = String(date.getDate()).padStart(2, '0');
+                // MM (com padding, getMonth() é 0-indexed)
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                // YY (últimos dois dígitos do ano)
+                const year = String(date.getFullYear()).slice(-2);
+                
+                // HH (com padding)
+                const hours = String(date.getHours()).padStart(2, '0');
+                // MM (com padding)
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+
+                // Formato customizado: DD/MM/YY, HH:MM
+                return `${day}/${month}/${year}, ${hours}:${minutes}`;
+
             } catch (e) {
                 console.error("Erro ao formatar data:", e);
                 return 'Data Indisponível';
@@ -182,12 +189,11 @@
             
             const cleanedTitle = cleanTitle(episode.title);
             
-            // O texto da data de publicação agora incluirá a hora
             itemDiv.innerHTML = `
                 <div class="flex items-center justify-between">
                     <div>
                         <h3 class="text-lg font-semibold text-white">${cleanedTitle}</h3>
-                        <p class="text-sm text-gray-400 mt-1">Publicado em: ${formatDate(episode.pubDate)}</p>
+                        <p class="text-sm text-gray-400 mt-1">Publicado em ${formatDate(episode.pubDate)}</p>
                     </div>
                     <button class="flex-shrink-0 bg-gray-600 text-white p-2 rounded-full shadow-lg hover:bg-gray-500 transition duration-150 transform hover:scale-105" aria-label="Tocar episódio">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
