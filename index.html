@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estádio 97</title>
     
-    <!-- Carrega a fonte Oswald do Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Carrega Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Define a fonte Oswald como padrão para toda a página */
@@ -61,19 +59,16 @@
 
     <div class="max-w-4xl mx-auto p-4 md:p-8 flex-grow w-full">
 
-        <!-- Header e Título do Podcast -->
         <header id="podcast-header" class="bg-gray-900 shadow-xl rounded-xl p-6 mb-6">
             <h1 class="text-3xl font-extrabold text-white mb-2" id="podcast-title">Carregando Podcast...</h1>
             <p class="text-gray-400 text-sm" id="podcast-description">Buscando o feed RSS...</p>
 
-            <!-- Loading Indicator (Anel de carregamento) -->
             <div id="loading-indicator" class="flex items-center justify-center mt-4">
                 <div class="loading-ring"></div>
                 <span class="ml-3 text-gray-300 font-medium">Buscando episódios...</span>
             </div>
         </header>
 
-        <!-- Player de Áudio Principal -->
         <div id="main-player-container" class="sticky top-0 z-10 bg-gray-800 shadow-2xl rounded-xl p-4 mb-6 hidden">
             <p class="text-xs text-gray-300 font-bold uppercase mb-1">Tocando Agora:</p>
             <h2 id="current-episode-title" class="text-xl font-semibold mb-3 text-white">Nenhum episódio selecionado.</h2>
@@ -82,22 +77,18 @@
             </audio>
         </div>
 
-        <!-- Lista de Episódios -->
         <main id="episode-list-container">
             <h2 class="text-2xl font-bold text-gray-200 mb-4">Últimos Episódios</h2>
             <div id="episodes-list" class="space-y-4">
-                <!-- Conteúdo dos episódios -->
-            </div>
+                </div>
             
-             <!-- Mensagem de Erro/Vazio -->
-            <p id="error-message" class="hidden text-red-300 text-center p-6 bg-red-900 rounded-lg">
+             <p id="error-message" class="hidden text-red-300 text-center p-6 bg-red-900 rounded-lg">
                 Não foi possível carregar o feed. Verifique a URL do RSS ou o status do servidor proxy.
             </p>
         </main>
 
     </div>
     
-    <!-- Rodapé Branco de Largura Total -->
     <footer class="w-full bg-white p-4 mt-8 shadow-inner">
         <div class="max-w-4xl mx-auto text-center text-gray-800 text-sm">
             Exibindo os 7 episódios mais recentes.
@@ -125,9 +116,10 @@
         let globalPodcastTitle = '';
 
         /**
-         * Converte uma data de string RSS (RFC 822) para um formato legível em português.
+         * Converte uma data de string RSS (RFC 822) para um formato legível em português,
+         * incluindo data e hora.
          * @param {string} dateString - A string de data do RSS.
-         * @returns {string} Data formatada.
+         * @returns {string} Data e hora formatadas.
          */
         function formatDate(dateString) {
             try {
@@ -137,11 +129,13 @@
                 if (isNaN(date)) {
                     return 'Data Indisponível';
                 }
-                // Formata a data para o padrão brasileiro
+                // Formata a data e hora para o padrão brasileiro
                 return date.toLocaleDateString('pt-BR', {
                     year: 'numeric',
                     month: 'long',
-                    day: 'numeric'
+                    day: 'numeric',
+                    hour: '2-digit',   // Adiciona a hora
+                    minute: '2-digit'  // Adiciona o minuto
                 });
             } catch (e) {
                 console.error("Erro ao formatar data:", e);
@@ -188,23 +182,20 @@
             
             const cleanedTitle = cleanTitle(episode.title);
             
+            // O texto da data de publicação agora incluirá a hora
             itemDiv.innerHTML = `
                 <div class="flex items-center justify-between">
                     <div>
-                        <!-- Título limpo e texto branco -->
                         <h3 class="text-lg font-semibold text-white">${cleanedTitle}</h3>
-                        <!-- Data de Publicação (segunda linha), texto cinza-400 -->
                         <p class="text-sm text-gray-400 mt-1">Publicado em: ${formatDate(episode.pubDate)}</p>
                     </div>
-                    <!-- Botão de Play em cinza escuro -->
                     <button class="flex-shrink-0 bg-gray-600 text-white p-2 rounded-full shadow-lg hover:bg-gray-500 transition duration-150 transform hover:scale-105" aria-label="Tocar episódio">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
                         </svg>
                     </button>
                 </div>
-                <!-- REMOVIDA A TERCEIRA LINHA (DESCRIÇÃO) -->
-            `;
+                `;
 
             // Adiciona o evento de clique para tocar o episódio
             itemDiv.addEventListener('click', () => {
@@ -324,5 +315,3 @@
     </script>
 </body>
 </html>
-
-
