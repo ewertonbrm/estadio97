@@ -76,13 +76,13 @@
 
             <div id="loading-indicator" class="flex items-center justify-center mt-4">
                 <div class="loading-ring"></div>
-                <span class="ml-3 text-gray-300 font-medium">Buscando episódios...</span>
+                <span class="ml-3 text-gray-300 font-medium">Buscando programas...</span>
             </div>
         </header>
 
         <div id="main-player-container" class="sticky top-0 z-10 bg-bg-secondary shadow-2xl rounded-xl p-4 mb-6 hidden">
             <p class="text-xs text-gray-300 font-bold uppercase mb-1">Tocando Agora:</p>
-            <h2 id="current-episode-title" class="text-xl font-semibold mb-3 text-white">Nenhum episódio selecionado.</h2>
+            <h2 id="current-episode-title" class="text-xl font-semibold mb-3 text-white">Nenhum programa selecionado.</h2>
             <audio controls id="podcast-audio-player" class="w-full h-12 bg-[#1A4580] rounded-lg">
                 Seu navegador não suporta o elemento de áudio.
             </audio>
@@ -313,7 +313,7 @@
                 if (limitedEpisodes.length > 0) {
                     limitedEpisodes.forEach(createEpisodeItem);
                 } else {
-                     episodeListDiv.innerHTML = '<p class="text-center text-gray-400 p-6 bg-gray-700 rounded-lg">Nenhum episódio encontrado neste feed.</p>';
+                     episodeListDiv.innerHTML = '<p class="text-center text-gray-400 p-6 bg-gray-700 rounded-lg">Nenhum programa encontrado neste feed.</p>';
                 }
 
             } catch (error) {
@@ -346,4 +346,5 @@
     </script>
 </body>
 </html>
+
 
