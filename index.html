@@ -45,6 +45,22 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Estilos para o ícone de fundo no cabeçalho */
+        .header-icon-overlay {
+            position: absolute;
+            top: 10px; /* Ajuste para mover para cima/baixo */
+            right: 10px; /* Ajuste para mover para esquerda/direita */
+            width: 150px; /* Largura do contêiner do ícone */
+            height: 150px; /* Altura do contêiner do ícone */
+            background-image: url('icons/icon-192x192.png'); /* Caminho para o seu ícone */
+            background-size: contain; /* Garante que a imagem caiba no contêiner */
+            background-repeat: no-repeat; /* Não repete a imagem */
+            background-position: center; /* Centraliza a imagem no contêiner */
+            opacity: 0.15; /* Opacidade (15%) - ajuste conforme preferir */
+            pointer-events: none; /* Garante que não interfira com cliques nos outros elementos */
+            transform: rotate(-15deg); /* Leve rotação para um efeito interessante */
+        }
     </style>
     <script>
         // Configuração do Tailwind (apenas para cores)
@@ -70,26 +86,28 @@
 
     <div class="max-w-4xl mx-auto p-4 md:p-8 flex-grow w-full">
 
-        <header id="podcast-header" class="bg-bg-secondary shadow-xl rounded-xl p-6 mb-6">
+        <header id="podcast-header" class="bg-bg-secondary shadow-xl rounded-xl p-6 mb-6 relative overflow-hidden">
             <h1 class="text-3xl font-extrabold text-white mb-2" id="podcast-title">Carregando Podcast...</h1>
-            <p class="text-gray-400 text-sm" id="podcast-description">Buscando o feed RSS...</p>
+            <p class="text-gray-400 text-sm mb-4" id="podcast-description">Buscando o feed RSS...</p>
+
+            <div class="header-icon-overlay"></div> 
 
             <div id="loading-indicator" class="flex items-center justify-center mt-4">
                 <div class="loading-ring"></div>
-                <span class="ml-3 text-gray-300 font-medium">Buscando programas...</span>
+                <span class="ml-3 text-gray-300 font-medium">Buscando episódios...</span>
             </div>
         </header>
 
         <div id="main-player-container" class="sticky top-0 z-10 bg-bg-secondary shadow-2xl rounded-xl p-4 mb-6 hidden">
             <p class="text-xs text-gray-300 font-bold uppercase mb-1">Tocando Agora:</p>
-            <h2 id="current-episode-title" class="text-xl font-semibold mb-3 text-white">Nenhum programa selecionado.</h2>
+            <h2 id="current-episode-title" class="text-xl font-semibold mb-3 text-white">Nenhum episódio selecionado.</h2>
             <audio controls id="podcast-audio-player" class="w-full h-12 bg-[#1A4580] rounded-lg">
                 Seu navegador não suporta o elemento de áudio.
             </audio>
         </div>
 
         <main id="episode-list-container">
-            <h2 class="text-2xl font-bold text-gray-200 mb-4">Últimos Programas</h2>
+            <h2 class="text-2xl font-bold text-gray-200 mb-4">Últimos Episódios</h2>
             <div id="episodes-list" class="space-y-4">
                 </div>
             
@@ -102,7 +120,7 @@
     
     <footer class="w-full bg-white p-4 mt-8 shadow-inner">
         <div class="max-w-4xl mx-auto text-center text-gray-800 text-sm">
-            Exibindo os 7 programas mais recentes.
+            Exibindo os 7 episódios mais recentes.
         </div>
     </footer>
 
@@ -313,7 +331,7 @@
                 if (limitedEpisodes.length > 0) {
                     limitedEpisodes.forEach(createEpisodeItem);
                 } else {
-                     episodeListDiv.innerHTML = '<p class="text-center text-gray-400 p-6 bg-gray-700 rounded-lg">Nenhum programa encontrado neste feed.</p>';
+                     episodeListDiv.innerHTML = '<p class="text-center text-gray-400 p-6 bg-gray-700 rounded-lg">Nenhum episódio encontrado neste feed.</p>';
                 }
 
             } catch (error) {
@@ -346,5 +364,3 @@
     </script>
 </body>
 </html>
-
-
